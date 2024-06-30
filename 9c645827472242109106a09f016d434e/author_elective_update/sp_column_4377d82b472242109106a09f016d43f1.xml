@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_column">
+    <sp_column action="DELETE">
+        <class_name/>
+        <order>1</order>
+        <semantic_tag/>
+        <size>12</size>
+        <size_lg/>
+        <size_sm/>
+        <size_xs/>
+        <sp_row display_value="1">cb77d8e7472242109106a09f016d43e5</sp_row>
+        <sys_class_name>sp_column</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-08 09:45:59</sys_created_on>
+        <sys_id>4377d82b472242109106a09f016d43f1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="The Bhagavad Gita" source="x_1404465_the_bh_0">9c645827472242109106a09f016d434e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="The Bhagavad Gita">9c645827472242109106a09f016d434e</sys_scope>
+        <sys_update_name>sp_column_4377d82b472242109106a09f016d43f1</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-08 09:45:59</sys_updated_on>
+    </sp_column>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="The Bhagavad Gita">9c645827472242109106a09f016d434e</application>
+        <file_path/>
+        <instance_id>f753b46bdb8abd142f082a5913961995</instance_id>
+        <instance_name>dev197155</instance_name>
+        <name>sp_column_4377d82b472242109106a09f016d43f1</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_column"><sp_column action="INSERT_OR_UPDATE"><class_name/><order>1</order><semantic_tag/><size>12</size><size_lg/><size_sm/><size_xs/><sp_row display_value="1">cb77d8e7472242109106a09f016d43e5</sp_row><sys_class_name>sp_column</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-06-08 09:45:59</sys_created_on><sys_id>4377d82b472242109106a09f016d43f1</sys_id><sys_mod_count>0</sys_mod_count><sys_name>1</sys_name><sys_package display_value="The Bhagavad Gita" source="x_1404465_the_bh_0">9c645827472242109106a09f016d434e</sys_package><sys_policy/><sys_scope display_value="The Bhagavad Gita">9c645827472242109106a09f016d434e</sys_scope><sys_update_name>sp_column_4377d82b472242109106a09f016d43f1</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-06-08 09:45:59</sys_updated_on></sp_column></record_update>]]></payload>
+        <payload_hash>385916369</payload_hash>
+        <record_name>1</record_name>
+        <reverted_from/>
+        <source>5c645827472242109106a09f016d4352</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-08 09:45:59</sys_created_on>
+        <sys_id>4b77d82b472242109106a09f016d43f3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18ff73d96360000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-08 09:45:59</sys_updated_on>
+        <type>Column</type>
+        <update_guid>4f77d82bb1224210f75cefe2ec3515f2</update_guid>
+        <update_guid_history>4f77d82bb1224210f75cefe2ec3515f2:385916369</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="1">1ae8206f476242109106a09f016d4374</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-08 11:02:08</sys_created_on>
+        <sys_db_object display_value="" name="sp_column">sp_column</sys_db_object>
+        <sys_id>622dcbaae84d4318a2d39aa7bc090f44</sys_id>
+        <sys_metadata>4377d82b472242109106a09f016d43f1</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="The Bhagavad Gita" source="x_1404465_the_bh_0">9c645827472242109106a09f016d434e</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="The Bhagavad Gita">9c645827472242109106a09f016d434e</sys_scope>
+        <sys_scope_delete display_value="">381876675796438eb9050f412a01c451</sys_scope_delete>
+        <sys_update_name>sp_column_4377d82b472242109106a09f016d43f1</sys_update_name>
+        <sys_update_version display_value="sp_column_4377d82b472242109106a09f016d43f1">4b77d82b472242109106a09f016d43f3</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-08 11:02:08</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

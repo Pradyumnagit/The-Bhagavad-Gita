@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+	var c = this;
+	c.click=function(chapt,slok,lang){
+		c.data.action='call';
+		c.server.update().then(function(){
+			c.data.action=undefined;
+		});
+	}
+
+	c.clear=function(){
+		alert('call');
+		c.data.chapter='';
+		c.data.sloka='';
+		c.data.language='';
+	}
+
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.button{
+  float:right;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>the_bhagavad_gita</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>The Bhagavad Gita</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+	if (input && input.action=='call'){
+		if(input.chapter && input.sloka && input.language) {
+			try { 
+				var r = new sn_ws.RESTMessageV2('x_1404465_the_bh_0.The Bhagavad Gita', 'GETGita');
+				r.setStringParameterNoEscape('chap', input.chapter);
+				r.setStringParameterNoEscape('ver', input.sloka);
+				r.setStringParameterNoEscape('lng', input.language);
+				var response = r.execute();
+				var responseBody = JSON.parse(response.getBody());
+				var httpStatus = response.getStatusCode();
+				data.chapter_name=responseBody.chapter_name+'';
+				data.verse=responseBody.verse+'';
+				data.synonyms=responseBody.synonyms+'';
+				data.translation=responseBody.translation+'';
+				data.purport=responseBody.purport.toString();
+				data.audio_link=responseBody.audio_link;
+			}
+			catch(ex) {
+				var message = ex.message;
+				gs.addErrorMessage('I am sorry currently we are facing some issue. Please drop an email to mailpradyumnactc@gmail.com.');
+			}
+		} else{
+			gs.addErrorMessage('Please enter all the required inputs.');
+		}
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-08 09:45:44</sys_created_on>
+        <sys_id>1767942b472242109106a09f016d4354</sys_id>
+        <sys_mod_count>81</sys_mod_count>
+        <sys_name>The Bhagavad Gita</sys_name>
+        <sys_package display_value="The Bhagavad Gita" source="x_1404465_the_bh_0">9c645827472242109106a09f016d434e</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="The Bhagavad Gita">9c645827472242109106a09f016d434e</sys_scope>
+        <sys_update_name>sp_widget_1767942b472242109106a09f016d4354</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-30 13:59:54</sys_updated_on>
+        <template><![CDATA[<h3>
+  The Bhagavad Gita contains 18 chapters and 700 verses—ślokas or shlokas. Of these, 574 have been delivered by Krishna, 84 by Arjuna, and 41 by Sanjay.
+</h3>
+<div class="row">
+  <div class ="col-md-4">
+    <label for="Input1">Chapter Number</label>
+    <input type="number" class="form-control" id="Input1" ng-model="c.data.chapter">
+  </div>
+  <div class ="col-md-4">
+    <label for="Input2">Verse/Slokas Number</label>
+    <input type="number" class="form-control" id="Input2" ng-model="c.data.sloka">
+  </div>
+  <div class ="col-md-4">
+    <label for="Input3">Language</label>
+    <select class="form-control" aria-label="Default select example" id="Input3" ng-model="c.data.language">
+      <option value=""> --None-- </option>
+      <option value="odi">Odia</option>
+      <option value="tel">Telugu</option>
+      <option value="esp">Hindi</option>
+      <option value="eng">English</option>
+    </select>
+  </div>
+</div>
+<br>
+<div class="row button">
+  <a class="btn btn-success mb-4" ng-click="c.click(c.data.chapter,c.data.sloka,c.data.language)">Search</a>
+  <a class="btn btn-danger mb-4" ng-clcik="c.clear()">Clear</a>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <label for="output1">Chapter Name: </label>
+    <input type="text" class="form-control" id="output1" readonly ng-model="c.data.chapter_name">
+  </div>
+  <div class="col-md-12">
+    <label for="output2">Verse: </label>
+    <input type="text" class="form-control" id="output2" readonly ng-model="c.data.verse">
+  </div>
+  <div class="col-md-12">
+    <label for="output3">Synonyms: </label>
+    <textarea type="text" class="form-control" id="output3" readonly>{{data.synonyms}}</textarea>
+  </div>
+  <div class="col-md-12">
+    <label for="output4">Translation: </label>
+    <textarea type="text" class="form-control" id="output4" readonly>{{data.translation}}</textarea>
+  </div>
+  <div class="col-md-12">
+    <label for="output5">Purport: </label>
+    <textarea type="text" class="form-control" id="output5" readonly>{{data.purport}}</textarea>
+  </div>
+  <br>
+  <br>
+  <div class="col-md-12">
+    <h3>
+      <a href="{{data.audio_link}}" target="_blank">Click here</a> to listen the audio.</h3>
+  </div>
+  <br>
+  <br>
+</div>
+
+
+]]></template>
+    </sp_widget>
+</record_update>
