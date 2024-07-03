@@ -11,16 +11,19 @@
 	}
 
 	c.clear=function(){
-		alert('call');
 		c.data.chapter='';
 		c.data.sloka='';
 		c.data.language='';
+		c.data.show=undefined;
 	}
 
 };]]></client_script>
         <controller_as>c</controller_as>
         <css>.button{
   float:right;
+}
+p{
+font-size:20px;
 }
 </css>
         <data_table>sp_instance</data_table>
@@ -39,6 +42,7 @@
         <script><![CDATA[(function() {
 	/* populate the 'data' object */
 	/* e.g., data.table = $sp.getValue('table'); */
+	data.show=undefined;
 	if (input && input.action=='call'){
 		if(input.chapter && input.sloka && input.language) {
 			try { 
@@ -49,18 +53,30 @@
 				var response = r.execute();
 				var responseBody = JSON.parse(response.getBody());
 				var httpStatus = response.getStatusCode();
-				data.chapter_name=responseBody.chapter_name+'';
-				data.verse=responseBody.verse+'';
-				data.synonyms=responseBody.synonyms+'';
-				data.translation=responseBody.translation+'';
-				data.purport=responseBody.purport.toString();
-				data.audio_link=responseBody.audio_link;
+				if(httpStatus==200 && responseBody.error==undefined){
+					data.show=true;
+					data.error='';
+					data.chapter_name=responseBody.chapter_name+'';
+					data.verse=responseBody.verse+'';
+					data.synonyms=responseBody.synonyms+'';
+					data.translation=responseBody.translation+'';
+					data.purport=responseBody.purport.toString();
+					data.audio_link=responseBody.audio_link;
+				}else{
+					data.show=false;
+					data.error='Hey! '+ responseBody.message;
+					gs.addErrorMessage('Hey! '+ responseBody.message);
+				}
 			}
 			catch(ex) {
 				var message = ex.message;
-				gs.addErrorMessage('I am sorry currently we are facing some issue. Please drop an email to mailpradyumnactc@gmail.com.');
+				data.show=false;
+				data.error='I am sorry currently we are facing some issue. Please drop an email to mailpradyumnactc@gmail.com regarding your issue. Your error message is: '+message
+				gs.addErrorMessage('I am sorry currently we are facing some issue. Please drop an email to mailpradyumnactc@gmail.com regarding your issue. Your error message is: '+message);
 			}
 		} else{
+			data.show=false;
+			data.error='Please enter all the required inputs.';
 			gs.addErrorMessage('Please enter all the required inputs.');
 		}
 	}
@@ -70,62 +86,60 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-08 09:45:44</sys_created_on>
         <sys_id>1767942b472242109106a09f016d4354</sys_id>
-        <sys_mod_count>81</sys_mod_count>
+        <sys_mod_count>127</sys_mod_count>
         <sys_name>The Bhagavad Gita</sys_name>
         <sys_package display_value="The Bhagavad Gita" source="x_1404465_the_bh_0">9c645827472242109106a09f016d434e</sys_package>
         <sys_policy/>
         <sys_scope display_value="The Bhagavad Gita">9c645827472242109106a09f016d434e</sys_scope>
         <sys_update_name>sp_widget_1767942b472242109106a09f016d4354</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-30 13:59:54</sys_updated_on>
+        <sys_updated_on>2024-07-02 18:28:40</sys_updated_on>
         <template><![CDATA[<h3>
-  The Bhagavad Gita contains 18 chapters and 700 verses—ślokas or shlokas. Of these, 574 have been delivered by Krishna, 84 by Arjuna, and 41 by Sanjay.
-</h3>
+  The Bhagavad Gita contains 18 chapters and 700 verses—ślokas or shlokas. Of these, 574 have been delivered by Krishna, 84 by Arjuna, and 41 by Sanjay.</h3>
+-- Sri Krishna Bhajan -- <audio controls="controls" src="krishna.mp3"> </audio><span id="645b0be6478b02109106a09f016d4341_noimage" style="visibility:normal"/>
 <div class="row">
   <div class ="col-md-4">
     <label for="Input1">Chapter Number</label>
-    <input type="number" class="form-control" id="Input1" ng-model="c.data.chapter">
+    <input type="number" class="form-control" id="Input1" ng-model="c.data.chapter" required>
   </div>
   <div class ="col-md-4">
     <label for="Input2">Verse/Slokas Number</label>
-    <input type="number" class="form-control" id="Input2" ng-model="c.data.sloka">
+    <input type="number" class="form-control" id="Input2" ng-model="c.data.sloka" required>
   </div>
   <div class ="col-md-4">
     <label for="Input3">Language</label>
-    <select class="form-control" aria-label="Default select example" id="Input3" ng-model="c.data.language">
+    <select class="form-control" aria-label="Default select example" id="Input3" ng-model="c.data.language" required>
       <option value=""> --None-- </option>
       <option value="odi">Odia</option>
       <option value="tel">Telugu</option>
-      <option value="esp">Hindi</option>
-      <option value="eng">English</option>
+      <option value="esp" disabled>Hindi</option>
+      <option value="eng" disabled>English</option>
     </select>
   </div>
 </div>
 <br>
+<br>
 <div class="row button">
   <a class="btn btn-success mb-4" ng-click="c.click(c.data.chapter,c.data.sloka,c.data.language)">Search</a>
-  <a class="btn btn-danger mb-4" ng-clcik="c.clear()">Clear</a>
+  <a class="btn btn-danger mb-4" ng-click="c.clear()">Clear</a>
 </div>
-<div class="row">
+<br>
+<br>
+<div class="row" ng-if="data.show">
   <div class="col-md-12">
-    <label for="output1">Chapter Name: </label>
-    <input type="text" class="form-control" id="output1" readonly ng-model="c.data.chapter_name">
+    <p id="output1"><b>Chapter Name: </b>{{data.chapter_name}}</p>
   </div>
   <div class="col-md-12">
-    <label for="output2">Verse: </label>
-    <input type="text" class="form-control" id="output2" readonly ng-model="c.data.verse">
+    <p id="output2"><b>Verse: </b>{{data.verse}}</p>
   </div>
   <div class="col-md-12">
-    <label for="output3">Synonyms: </label>
-    <textarea type="text" class="form-control" id="output3" readonly>{{data.synonyms}}</textarea>
+    <p id="output3"><b>Synonyms: </b>{{data.synonyms}}</p>
   </div>
   <div class="col-md-12">
-    <label for="output4">Translation: </label>
-    <textarea type="text" class="form-control" id="output4" readonly>{{data.translation}}</textarea>
+    <p id="output4"><b>Translation: </b>{{data.translation}}</p>
   </div>
   <div class="col-md-12">
-    <label for="output5">Purport: </label>
-    <textarea type="text" class="form-control" id="output5" readonly>{{data.purport}}</textarea>
+    <p id="output5"><b>Purport: </b>{{data.purport}}</p>
   </div>
   <br>
   <br>
@@ -135,6 +149,11 @@
   </div>
   <br>
   <br>
+</div>
+<div class="row" ng-if="!data.show && data.show!=undefined">
+  <div class="col-md-12">
+    <p id="error"><b>{{data.error}}</b></p>
+  </div>
 </div>
 
 
